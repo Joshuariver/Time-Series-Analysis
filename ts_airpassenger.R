@@ -73,6 +73,10 @@ acf(diff(log(AirPassengers)))
 # PACF plot
 pacf(diff(log(AirPassengers)))
 
+# Auto Arima
+
+auto.arima(ts(AirPassengers))
+
 # Clearly, ACF plot cuts off after the first lag. Hence, we understood that value of p should be 0 
 # as the ACF is the curve getting a cut off. While value of q should be 1 or 2. After a few iterations, 
 # we found that (0,1,1) as (p,d,q) comes out to be the combination with least AIC and BIC.
