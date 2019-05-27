@@ -1,7 +1,8 @@
 rm(list=ls())
-setwd("D:/RLab/Time Series/Time Series")
+setwd("~/R/Time Series Analysis/Time Series Analysis")
 
 library(tseries)
+library(forecast)
 
 # Time Series 데이터 인지 확인
 
@@ -83,9 +84,9 @@ auto.arima(ts(AirPassengers))
 
 
 # ARIMA 모델 구축
-(fit <- arima(log(AirPassengers), c(0, 1, 1),seasonal = list(order = c(0, 1, 1), period = 12)))
+# (fit <- arima(log(AirPassengers), c(0, 1, 1),seasonal = list(order = c(0, 1, 1), period = 12)))
+(fit <- arima(log(AirPassengers), c(4, 1, 2),seasonal = list(order = c(4, 1, 2), period = 12)))
 
 # 예측
 pred <- predict(fit, n.ahead = 10*12)
 ts.plot(AirPassengers,2.718^pred$pred, log = "y", lty = c(1,3))
-
