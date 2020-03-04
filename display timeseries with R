@@ -1,0 +1,384 @@
+# ts case 03.  Displaying time series with R
+# https://www.r-bloggers.com/displaying-time-series-with-r/
+# 시계열데이터를 "lattice" Package를 활용하여 다양하게 Display 해 주는 방법들에 대한 소개
+
+rm(list=ls())
+setwd("D:/RLab/Time Series/Time Series")
+
+
+library(lattice)
+library(ggplot2)
+# latticeExtra must be loaded after ggplot2 to prevent masking of `layer`
+library(latticeExtra)
+library(RColorBrewer)
+# lattice and latticeExtra configuration
+myTheme <- custom.theme.2(
+  pch=19, cex=0.7, region=rev(brewer.pal(9, 'YlOrRd')),
+  symbol=brewer.pal(n=8, name="Dark2"))
+myTheme$strip.background$col = myTheme$strip.shingle$col =
+  myTheme$strip.border$col = 'transparent'
+
+myArgs <- list(
+  as.table=TRUE, between=list(x=0.5, y=0.2),
+  xscale.components = function(...)
+    modifyList(xscale.components.default(...), list(top=FALSE)),
+  yscale.components = function(...)
+    modifyList(yscale.components.default(...), list(right=FALSE)))
+
+lattice.options(default.theme=myTheme, default.args=modifyList(
+  lattice.options()$default.args, myArgs))
+
+library(zoo) 
+
+load('aranjuez.RData')
+load('navarra.RData')
+load('CO2.RData')
+
+
+## The layout argument arranges panels in rows
+xyplot(aranjuez, layout = c(1, ncol(aranjuez)))  #  Madrid 인근 Aranjuez 지역의 기상데이터
+
+
+## facet_free allows each panel to have its own range
+autoplot(aranjuez) + facet_free() 
+
+
+avRad <- zoo(rowMeans(navarra, na.rm = 1), index(navarra))  # avRad(Around the time average) 
+pNavarra <- xyplot(navarra - avRad,
+                   superpose = TRUE, auto.key = FALSE,
+                   lwd = 0.5, alpha = 0.3, col = 'midnightblue') 
+pNavarra 
+
+# 상기의 시계열 그래프를 horizonplot 를 활용하여 개선함함
+
+
+horizonplot(navarra - avRad,
+            layout = c(1, ncol(navarra)),
+            origin = 0, ## Deviations in each panel are calculated
+            ## from this value
+            colorkey = TRUE,
+            col.regions = brewer.pal(6, "RdBu")) 
+
+
+Ta <- aranjuez$TempAvg
+timeIndex <- index(aranjuez)
+longTa <- ave(Ta, format(timeIndex, '%j'))
+diffTa <- (Ta - longTa) 
+
+# The next code uses horizonplot with the cut-and-stack method to distinguish between years.
+# horizonplot 을 연도별로 분리하여 display 함
+
+years <- unique(format(timeIndex, '%Y'))
+
+horizonplot(diffTa, cut = list(n = 8, overlap = 0),
+            colorkey = TRUE, layout = c(1, 8),
+            scales = list(draw = FALSE, y = list(relation = 'same')),
+            origin = 0, strip.left = FALSE) +
+  layer(grid.text(years[panel.number()], x  =  0, y  =  0.1, 
+                  gp = gpar(cex = 0.8),
+                  just = "left")) 
+
+# 각 항목별로 연도별 데이터를 모두 집어넣어 연도별 항목의 차이를 보여주는 그래프
+
+year <- function(x)as.numeric(format(x, '%Y'))
+day <- function(x)as.numeric(format(x, '%d'))
+month <- function(x)as.numeric(format(x, '%m')) 
+myTheme <- modifyList(custom.theme(region = brewer.pal(9, 'RdBu')),
+                      list(
+                        strip.background = list(col = 'gray'),
+                        panel.background = list(col = 'gray')))
+
+maxZ <- max(abs(diffTa))
+
+levelplot(diffTa ~ day(timeIndex) * year(timeIndex) | factor(month(timeIndex)),
+          at = pretty(c(-maxZ, maxZ), n = 8),
+          colorkey = list(height = 0.3),
+          layout = c(1, 12), strip = FALSE, strip.left = TRUE,
+          xlab = 'Day', ylab = 'Month', 
+          par.settings = myTheme)
+
+
+# ggplot 에서는 date data 를 연/월/일 각 항목별로 별도의 필드로 분리하여 처리되어야 함.
+
+df <- data.frame(Vals = diffTa,
+                 Day = day(timeIndex),
+                 Year = year(timeIndex),
+                 Month = month(timeIndex)) 
+
+
+
+# geom_raster 함수를 사용하여 데이터의 심도를 디스플레이 함.
+
+library(scales) 
+## The packages scales is needed for the pretty_breaks function.
+
+ggplot(data = df,
+       aes(fill = Vals,
+           x = Day,
+           y = Year)) +
+  facet_wrap(~ Month, ncol = 1, strip.position = 'left') +
+  scale_y_continuous(breaks = pretty_breaks()) + 
+  scale_fill_distiller(palette = 'RdBu', direction = 1) + 
+  geom_raster() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) 
+
+
+
+# Dygraph 를 활용하여 기온 데이터를 시계열 형태로 display
+
+library(dygraphs)
+
+dyTemp <- dygraph(aranjuez[, c("TempMin", "TempAvg", "TempMax")],
+                  main = "Temperature in Aranjuez",
+                  ylab = "ºC")
+
+widgetframe::frameWidget(dyTemp)
+
+
+# 상기와 동일한 데이터.  dplyr package 를 활용하여 적용함.
+
+
+dyTemp %>%
+  dyHighlight(highlightSeriesBackgroundAlpha = 0.2,
+              highlightSeriesOpts = list(strokeWidth = 2)) %>%
+  widgetframe::frameWidget()
+
+
+# DySeries 함수는 표시되는 데이터의 높은 값과 낮은 값들에 대해서 연하게 표현해 주는 함수임.
+
+
+dygraph(aranjuez[, c("TempMin", "TempAvg", "TempMax")],
+        main = "Temperature in Aranjuez",
+        ylab = "ºC") %>%
+  dySeries(c("TempMin", "TempAvg", "TempMax"),
+           label = "Temperature") %>%
+  widgetframe::frameWidget()
+
+
+# Highcharter 는 java 와 연동하여 interactive 하게 값을 보여줄 수 있는 package 임.
+# hc_add_series_xts 함수를 파이프 %>% 를 통해 연결해서 사용할 수 있음.
+
+
+library(highcharter)
+library(xts)
+
+aranjuezXTS <- as.xts(aranjuez)
+
+highchart() %>%
+  hc_add_series(name = 'TempMax',
+                aranjuezXTS[, "TempMax"]) %>%
+  hc_add_series(name = 'TempMin',
+                aranjuezXTS[, "TempMin"]) %>%
+  hc_add_series(name = 'TempAvg',
+                aranjuezXTS[, "TempAvg"]) %>%
+  widgetframe::frameWidget()
+
+
+
+# ploty package 를 활용하여 유사한 그래프를 그릴 수도 있음.
+
+
+aranjuezDF <- fortify(aranjuez[,
+                               c("TempMax",
+                                 "TempAvg",
+                                 "TempMin")],
+                      melt = TRUE)
+
+summary(aranjuezDF) 
+
+library(plotly)
+
+plot_ly(aranjuezDF) %>%
+  add_lines(x = ~ Index,
+            y = ~ Value,
+            color = ~ Series) %>%
+  widgetframe::frameWidget()
+
+
+
+###############################################################
+# Time as a conditioning or grouping variable
+# scatterplot matrix 를 활용하여 시간 데이터를 그룹핑하기
+###############################################################
+
+aranjuezDF <- as.data.frame(aranjuez)
+aranjuezDF$Month <- format(index(aranjuez), '%m') 
+## Red-Blue palette with black added (12 colors)
+colors <- c(brewer.pal(n = 11, 'RdBu'), '#000000')
+## Rearrange according to months (darkest for summer)
+colors <- colors[c(6:1, 12:7)] 
+splom(~ aranjuezDF[1:10], ## Do not include "Month"
+      groups = aranjuezDF$Month,
+      auto.key = list(space = 'right', 
+                      title = 'Month', cex.title = 1),
+      pscale = 0, varname.cex = 0.7, xlab = '',
+      par.settings = custom.theme(symbol = colors,
+                                  pch = 19),
+      cex = 0.3, alpha = 0.1)
+
+
+# ggplot 계열의 GGally package 를 활용하여 그래프 보여주기
+
+library(GGally)
+
+ggpairs(aranjuezDF,
+        columns = 1:10, ## Do not include "Month"
+        upper = list(continuous = "points"),
+        mapping = aes(colour = Month, alpha = 0.1))
+
+
+# Scatterplot with time as a conditioning variable
+
+library(reshape2)
+
+aranjuezRshp <- melt(aranjuezDF,
+                     measure.vars = c('TempMax',
+                                      'TempAvg',
+                                      'TempMin'),
+                     variable.name = 'Statistic',
+                     value.name = 'Temperature')
+
+
+ggplot(data = aranjuezRshp, aes(Radiation, Temperature)) +
+  facet_grid(Statistic ~ Month) +
+  geom_point(col = 'skyblue4', pch = 19, cex = 0.5, alpha = 0.3) +
+  geom_rug() +
+  stat_smooth(se = FALSE, method = 'loess',
+              col = 'indianred1', lwd = 1.2) +
+  theme_bw() 
+
+
+
+# 아래의 코드에서는 latticeExtra package 의 useOuterStrips 함수를 사용하여 표현해 보았음.
+# 
+
+
+useOuterStrips(
+  xyplot(Temperature ~ Radiation | Month * Statistic,
+         data = aranjuezRshp,
+         between = list(x = 0),
+         col = 'skyblue4', pch = 19,
+         cex = 0.5, alpha = 0.3)) +
+  layer({
+    panel.rug(..., col.line = 'indianred1',
+              end = 0.05, alpha = 0.6)
+    panel.loess(..., col = 'indianred1',
+                lwd = 1.5, alpha = 1)
+  }) 
+
+
+
+########################################
+# Time as a complementary variable
+########################################
+
+# Polylines
+# 각국의 GNI의 성장과 CO2 방출의 추이를 볼 수 있는 선 형태의 그래프로 표현함.
+
+
+## lattice version
+xyplot(GNI.capita  ~ CO2.capita, data = CO2data,
+       xlab = "Carbon dioxide emissions (metric tons per capita)",
+       ylab = "GNI per capita, PPP (current international $)",
+       groups = Country.Name, type = 'b') 
+
+
+# 색상의 선택 (choosing colors)
+
+nCountries <- nlevels(CO2data$Country.Name)
+pal <- brewer.pal(n = 5, 'Set1')
+pal <- rep(pal, length = nCountries) 
+
+
+## Rank of average values of CO2 per capita
+CO2mean <- aggregate(CO2.capita ~ Country.Name,
+                     data = CO2data, FUN = mean)
+palOrdered <- pal[rank(CO2mean$CO2.capita)]  
+
+## simpleTheme encapsulates the palette in a new theme for xyplot
+myTheme <- simpleTheme(pch = 19, cex = 0.6, col = palOrdered) 
+## lattice version
+pCO2.capita <- xyplot(GNI.capita  ~ CO2.capita,
+                      data = CO2data,
+                      xlab = "Carbon dioxide emissions (metric tons per capita)",
+                      ylab = "GNI per capita, PPP (current international $)",
+                      groups = Country.Name,
+                      par.settings = myTheme,
+                      type = 'b')
+
+pCO2.capita 
+
+## ggplot2 version
+gCO2.capita <- ggplot(data = CO2data,
+                      aes(x = CO2.capita,
+                          y = GNI.capita,
+                          color = Country.Name)) +
+  geom_point() + geom_path() +
+  scale_color_manual(values = palOrdered, guide = FALSE) +
+  xlab('CO2 emissions (metric tons per capita)') +
+  ylab('GNI per capita, PPP (current international $)') +
+  theme_bw() 
+
+
+# Labels to show time information
+# 표시된 시계열 데이터에 레이블 붙이기
+
+
+# lattice version
+pCO2.capita <- pCO2.capita +
+  glayer_(panel.text(...,
+                     labels = CO2data$Year[subscripts],
+                     pos = 2, cex = 0.5, col = 'gray'))
+pCO2.capita 
+
+
+## ggplot2 version
+gCO2.capita <- gCO2.capita + geom_text(aes(label = Year),
+                                       colour = 'gray',
+                                       size = 2.5,
+                                       hjust = 0, vjust = 0)
+
+# Country names: positioning labels
+# 나라이름 레이블 붙이기
+
+library(directlabels)
+
+## lattice version
+direct.label(pCO2.capita,
+             method = 'extreme.grid')
+
+
+## ggplot2 version
+direct.label(gCO2.capita, method = 'extreme.grid') 
+
+
+# Interactive graphics: animation
+#
+
+p <- plot_ly(CO2data,
+             x = ~CO2.capita,
+             y = ~GNI.capita,
+             sizes = c(10, 100),
+             marker = list(opacity = 0.7,
+                           sizemode = 'diameter')) 
+
+p <- add_markers(p,
+                 size = ~CO2.PPP,
+                 color = ~Country.Name,
+                 text = ~Country.Name, hoverinfo = "text",
+                 ids = ~Country.Name,
+                 frame = ~Year,
+                 showlegend = FALSE) 
+
+p <- animation_opts(p,
+                    frame = 1000,
+                    transition = 800,
+                    redraw = FALSE)
+
+p <- animation_slider(p,
+                      currentvalue = list(prefix = "Year "))
+
+widgetframe::frameWidget(p)
+
+
