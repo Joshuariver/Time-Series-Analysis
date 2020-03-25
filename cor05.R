@@ -1,7 +1,7 @@
 # Coronavirus analysis
 
 rm(list=ls())
-setwd("~/R/Time Series Analysis/Time Series Analysis/coronavirus")
+setwd("~/R/coronavirus")
 
 
 # 1.1 Data Source
@@ -16,6 +16,7 @@ library(magrittr)
 library(lubridate)
 library(tidyverse)
 library(gridExtra)
+library(knitr)
 library(kableExtra)
 
 
@@ -182,7 +183,7 @@ facet_wrap(~type, ncol=2, scales='free_y')
 
 
 ## excluding Mainland China
-df %>% filter(!(country %in% c('World', 'Mainland China'))) %>%
+df %>% filter(!(country %in% c('World', 'China'))) %>%
 ggplot(aes(x=date, y=count, fill=country)) +
 geom_area() + xlab('Date') + ylab('Count') +
 labs(title='Cases around the World (excl. China)') +
