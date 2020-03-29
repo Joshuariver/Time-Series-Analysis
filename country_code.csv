@@ -1,0 +1,178 @@
+﻿country_jh,country,iso2,iso3,numeric,iso_3166
+Afghanistan,Afghanistan,AF,AFG,4,AF
+Albania,Albania,AL,ALB,8,AL
+Algeria,Algeria,DZ,DZA,12,DZ
+Andorra,Andorra,AD,AND,20,AD
+Angola,Angola,AO,AGO,24,AO
+Antigua and Barbuda,Antigua and Barbuda,AG,ATG,28,AG
+Argentina,Argentina,AR,ARG,32,AR
+Armenia,Armenia,AM,ARM,51,AM
+Australia,Australia,AU,AUS,36,AU
+Austria,Austria,AT,AUT,40,AT
+Azerbaijan,Azerbaijan,AZ,AZE,31,AZ
+Bahamas,Bahamas,BS,BHS,44,BS
+Bahrain,Bahrain,BH,BHR,48,BH
+Bangladesh,Bangladesh,BD,BGD,50,BD
+Barbados,Barbados,BB,BRB,52,BB
+Belarus,Belarus,BY,BLR,112,BY
+Belgium,Belgium,BE,BEL,56,BE
+Belize,Belize,BZ,BLZ,84,BZ
+Benin,Benin,BJ,BEN,204,BJ
+Bhutan,Bhutan,BT,BTN,64,BT
+Bolivia,Bolivia,BO,BOL,68,BO
+Bosnia and Herzegovina,Bosnia and Herzegovina,BA,BIH,70,BA
+Brazil,Brazil,BR,BRA,76,BR
+Brunei,Burundi,BI,BDI,108,BI
+Bulgaria,Bulgaria,BG,BGR,100,BG
+Burkina Faso,Burkina Faso,BF,BFA,854,BF
+Burma,Myanmar,MM,MMR,104,MM
+Cabo Verde,Cape Verde,CV,CPV,132,CV
+Cambodia,Cambodia,KH,KHM,116,KH
+Cameroon,Cameroon,CM,CMR,120,CM
+Canada,Canada,CA,CAN,124,CA
+Central African Republic,Central African Republic,CF,CAF,140,CF
+Chad,Chad,TD,TCD,148,TD
+Chile,Chile,CL,CHL,152,CL
+China,China,CN,CHN,156,CN
+Colombia,Colombia,CO,COL,170,CO
+Congo (Brazzaville),Congo,CG,COG,178,CG
+Congo (Kinshasa),"Congo, the Democratic Republic of the",CD,COD,180,CD
+Costa Rica,Costa Rica,CR,CRI,188,CR
+Cote d'Ivoire,C??te d'Ivoire,CI,CIV,384,CI
+Croatia,Croatia,HR,HRV,191,HR
+Cuba,Cuba,CU,CUB,192,CU
+Cyprus,Cyprus,CY,CYP,196,CY
+Czechia,Czech Republic,CZ,CZE,203,CZ
+Denmark,Denmark,DK,DNK,208,DK
+Diamond Princess,,,,,
+Djibouti,Djibouti,DJ,DJI,262,DJ
+Dominica,Dominica,DM,DMA,212,DM
+Dominican Republic,Dominican Republic,DO,DOM,214,DO
+Ecuador,Ecuador,EC,ECU,218,EC
+Egypt,Egypt,EG,EGY,818,EG
+El Salvador,El Salvador,SV,SLV,222,SV
+Equatorial Guinea,Equatorial Guinea,GQ,GNQ,226,GQ
+Eritrea,Eritrea,ER,ERI,232,ER
+Estonia,Estonia,EE,EST,233,EE
+Eswatini,Eswatini,SZ,SWZ,748,SZ
+Ethiopia,Ethiopia,ET,ETH,231,ET
+Fiji,Fiji,FJ,FJI,242,FJ
+Finland,Finland,FI,FIN,246,FI
+France,France,FR,FRA,250,FR
+Gabon,Gabon,GA,GAB,266,GA
+Gambia,Gambia,GM,GMB,270,GM
+Georgia,Georgia,GE,GEO,268,GE
+Germany,Germany,DE,DEU,276,DE
+Ghana,Ghana,GH,GHA,288,GH
+Greece,Greece,GR,GRC,300,GR
+Grenada,Grenada,GD,GRD,308,GD
+Guatemala,Guatemala,GT,GTM,320,GT
+Guinea,Guinea,GN,GIN,324,GN
+Guinea-Bissau,Guinea-Bissau,GW,GNB,624,GW
+Guyana,Guyana,GY,GUY,328,GY
+Haiti,Haiti,HT,HTI,332,HT
+Holy See,Holy See (Vatican City State),VA,VAT,336,VA
+Honduras,Honduras,HN,HND,340,HN
+Hungary,Hungary,HU,HUN,348,HU
+Iceland,Iceland,IS,ISL,352,IS
+India,India,IN,IND,356,IN
+Indonesia,Indonesia,ID,IDN,360,ID
+Iran,Iran,IR,IRN,364,IR
+Iraq,Iraq,IQ,IRQ,368,IQ
+Ireland,Ireland,IE,IRL,372,IE
+Israel,Israel,IL,ISR,376,IL
+Italy,Italy,IT,ITA,380,IT
+Jamaica,Jamaica,JM,JAM,388,JM
+Japan,Japan,JP,JPN,392,JP
+Jordan,Jordan,JO,JOR,400,JO
+Kazakhstan,Kazakhstan,KZ,KAZ,398,KZ
+Kenya,Kenya,KE,KEN,404,KE
+"Korea, South","Korea, Republic of (South Korea)",KR,KOR,410,KR
+Kosovo,Kosovo,XK,RKS,383,XK
+Kuwait,Kuwait,KW,KWT,414,KW
+Kyrgyzstan,Kyrgyzstan,KG,KGZ,417,KG
+Laos,Lao People's Democratic Republic,LA,LAO,418,LA
+Latvia,Latvia,LV,LVA,428,LV
+Lebanon,Lebanon,LB,LBN,422,LB
+Liberia,Liberia,LR,LBR,430,LR
+Libya,Libyan Arab Jamahiriya,LY,LBY,434,LY
+Liechtenstein,Liechtenstein,LI,LIE,438,LI
+Lithuania,Lithuania,LT,LTU,440,LT
+Luxembourg,Luxembourg,LU,LUX,442,LU
+Madagascar,Madagascar,MG,MDG,450,MG
+Malaysia,Malaysia,MY,MYS,458,MY
+Maldives,Maldives,MV,MDV,462,MV
+Mali,Mali,ML,MLI,466,ML
+Malta,Malta,MT,MLT,470,MT
+Mauritania,Mauritania,MR,MRT,478,MR
+Mauritius,Mauritius,MU,MUS,480,MU
+Mexico,Mexico,MX,MEX,484,MX
+Moldova,"Moldova, Republic of",MD,MDA,498,MD
+Monaco,Monaco,MC,MCO,492,MC
+Mongolia,Mongolia,MN,MNG,496,MN
+Montenegro,Montenegro,ME,MNE,499,ME
+Morocco,Morocco,MA,MAR,504,MA
+Mozambique,Mozambique,MZ,MOZ,508,MZ
+MS Zaandam,Montserrat,MS,MSR,500,MS
+Namibia,Namibia,NA,NAM,516,NA
+Nepal,Nepal,NP,NPL,524,NP
+Netherlands,Netherlands,NL,NLD,528,NL
+New Zealand,New Zealand,NZ,NZL,554,NZ
+Nicaragua,Nicaragua,NI,NIC,558,NI
+Niger,Niger,NE,NER,562,NE
+Nigeria,Nigeria,NG,NGA,566,NG
+North Macedonia,"Macedonia, the former Yugoslav Republic of",MK,MKD,807,MK
+Norway,Norway,NO,NOR,578,NO
+Oman,Oman,OM,OMN,512,OM
+Pakistan,Pakistan,PK,PAK,586,PK
+Panama,Panama,PA,PAN,591,PA
+Papua New Guinea,Papua New Guinea,PG,PNG,598,PG
+Paraguay,Paraguay,PY,PRY,600,PY
+Peru,Peru,PE,PER,604,PE
+Philippines,Philippines,PH,PHL,608,PH
+Poland,Poland,PL,POL,616,PL
+Portugal,Portugal,PT,PRT,620,PT
+Qatar,Qatar,QA,QAT,634,QA
+Romania,Romania,RO,ROU,642,RO
+Russia,Russia,RU,RUS,643,RU
+Rwanda,Rwanda,RW,RWA,646,RW
+Saint Kitts and Nevis,Saint Kitts and Nevis,KN,KNA,659,KN
+Saint Lucia,Saint Lucia,LC,LCA,662,LC
+Saint Vincent and the Grenadines,Saint Vincent and the Grenadines,VC,VCT,670,VC
+San Marino,San Marino,SM,SMR,674,SM
+Saudi Arabia,Saudi Arabia,SA,SAU,682,SA
+Senegal,Senegal,SN,SEN,686,SN
+Serbia,Serbia,RS,SRB,688,RS
+Seychelles,Seychelles,SC,SYC,690,SC
+Singapore,Singapore,SG,SGP,702,SG
+Slovakia,Slovakia,SK,SVK,703,SK
+Slovenia,Slovenia,SI,SVN,705,SI
+Somalia,Somalia,SO,SOM,706,SO
+South Africa,South Africa,ZA,ZAF,710,ZA
+Spain,Spain,ES,ESP,724,ES
+Sri Lanka,Sri Lanka,LK,LKA,144,LK
+Sudan,Sudan,SD,SDN,736,SD
+Suriname,Suriname,SR,SUR,740,SR
+Sweden,Sweden,SE,SWE,752,SE
+Switzerland,Switzerland,CH,CHE,756,CH
+Syria,Syrian Arab Republic,SY,SYR,760,SY
+Taiwan*,Taiwan,TW,TWN,158,TW
+Tanzania,"Tanzania, United Republic of",TZ,TZA,834,TZ
+Thailand,Thailand,TH,THA,764,TH
+Timor-Leste,Timor-Leste,TL,TLS,626,TL
+Togo,Togo,TG,TGO,768,TG
+Trinidad and Tobago,Trinidad and Tobago,TT,TTO,780,TT
+Tunisia,Tunisia,TN,TUN,788,TN
+Turkey,Turkey,TR,TUR,792,TR
+Uganda,Uganda,UG,UGA,800,UG
+Ukraine,Ukraine,UA,UKR,804,UA
+United Arab Emirates,United Arab Emirates,AE,ARE,784,AE
+United Kingdom,United Kingdom,GB,GBR,826,GB
+Uruguay,Uruguay,UY,URY,858,UY
+US,United States Of America,US,USA,840,US
+Uzbekistan,Uzbekistan,UZ,UZB,860,UZ
+Venezuela,Venezuela,VE,VEN,862,VE
+Vietnam,Vietnam,VN,VNM,704,VN
+West Bank and Gaza,"Palestinian Territory, Occupied",PS,PSE,275,PS
+Zambia,Zambia,ZM,ZMB,894,ZM
+Zimbabwe,Zimbabwe,ZW,ZWE,716,ZW
