@@ -132,19 +132,21 @@ data.k <- mutate(data.j, confM = confirmed/pop*1000000, criticality = deaths/con
 # 5.1 한국의 각종 지수 시각화
 
 
-cfd.korea <- filter(data.k, data.k$country == "Korea, South")
-# plot(cfd.korea$confirmed)
-ggplot(cfd.korea, aes(x=date, y=confirmed)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 확진자수 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=confM)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 100만명당 확진자 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=new.confirm)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 신규 확진자수 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=deaths)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 사망자 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=new.death)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 신규 사망자 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=recovered)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 회복자 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=new.recov)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 신규 회복자 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=criticality)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 사망율율 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=a.rec.per.conf)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 누적 확진자 대 회복인원 비율 추세", x="날짜", y="인원수")
-ggplot(cfd.korea, aes(x=date, y=d.rec.per.conf)) + geom_point() + geom_smooth() + labs(title="COVID-19 한국 일간 확진자 대 회복인원 비율 추세", x="날짜", y="인원수")
+ctry <- "France"
 
+par(mfrow = c(3,4))
+cfd.ctry <- filter(data.k, data.k$country == ctry)
+# plot(cfd.ctry$confirmed)
+ggplot(cfd.ctry, aes(x=date, y=confirmed)) + geom_point() + geom_smooth() + labs(title="확진자수 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=confM)) + geom_point() + geom_smooth() + labs(title="100만명당 확진자 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=new.confirm)) + geom_point() + geom_smooth() + labs(title="신규 확진자수 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=deaths)) + geom_point() + geom_smooth() + labs(title="사망자 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=new.death)) + geom_point() + geom_smooth() + labs(title="신규 사망자 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=recovered)) + geom_point() + geom_smooth() + labs(title="회복자 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=new.recov)) + geom_point() + geom_smooth() + labs(title="신규 회복자 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=criticality)) + geom_point() + geom_smooth() + labs(title="사망율율 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=a.rec.per.conf)) + geom_point() + geom_smooth() + labs(title="누적 확진자 대 회복인원 비율 추세", x="날짜", y="인원수")
+ggplot(cfd.ctry, aes(x=date, y=d.rec.per.conf)) + geom_point() + geom_smooth() + labs(title="일간 확진자 대 회복인원 비율 추세", x="날짜", y="인원수")
 
 
 # Reference
